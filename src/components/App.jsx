@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { products as initalProducts } from "../mocks/products.json";
 import { Header } from "./Header";
 import { ProductsList } from "./ProductsList";
 import { v4 as uuidv4 } from "uuid";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { list, productoSeleccionado } = useSelector((state) => state);
   const [showForm, setShowForm] = useState({ show: false, mode: "Add" });
   const [products, setproducts] = useState(initalProducts);
   const [productToEdit, setProductToEdit] = useState(undefined);
+
+  useEffect(() => {
+    setShowForm({ show: true, mode: "Edit" });
+  }, [productoSeleccionado]);
 
   const handleEditClick = (product) => {
     setProductToEdit(product);
@@ -41,7 +47,7 @@ function App() {
         productToEdit={productToEdit}
       />
       <ProductsList
-        productList={products}
+        productList={list}
         onDelete={handleDeleteProduct}
         onEdit={handleEditClick}
       />

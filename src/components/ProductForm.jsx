@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  agregarProductoCreador,
+  editarProductoCreador,
+} from "../redux/actions/productsActions";
 
 export const ProductForm = (props) => {
-  const { onSubmitForm, product } = props;
+  const dispatch = useDispatch();
+  const { tipo, product } = props;
   const [name, setName] = useState(product ? product.name : "");
   const [description, setDescription] = useState(
     product ? product.description : ""
@@ -10,12 +16,24 @@ export const ProductForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmitForm({
-      id: product ? product.id : undefined,
-      name,
-      description,
-      price,
-    });
+
+    if (tipo === "crear") {
+      const producto = { name, description, price };
+      const action = agregarProductoCreador(producto);
+
+      dispatch(action);
+    }
+    if (tipo === "editar") {
+      const producto = {
+        id: product.id,
+        name: name,
+        description: description,
+        price: price,
+      };
+      const action = editarProductoCreador(producto);
+
+      dispatch(action);
+    }
     setName("");
     setDescription("");
     setPrice("");
