@@ -3,6 +3,8 @@ import {
   AGREGAR_PRODUCTO,
   EDITAR_PRODUCTO,
   SELECCIONAR_PRODUCTO,
+  SET_LOADING_FALSE,
+  SET_LOADING_TRUE,
 } from "../../constants/prodcutsTypes";
 
 const initialState = {
@@ -48,6 +50,16 @@ export const productsReducer = (state = initialState, action) => {
       return {
         ...state,
         productoSeleccionado: action.payload,
+      };
+    case SET_LOADING_TRUE:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case SET_LOADING_FALSE:
+      return {
+        ...state,
+        isLoading: false,
       };
     default:
       return state;

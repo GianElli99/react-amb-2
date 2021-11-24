@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  agregarProductoCreador,
+  crearAsyncCreator,
   editarProductoCreador,
 } from "../redux/actions/productsActions";
 
@@ -19,7 +19,7 @@ export const ProductForm = (props) => {
 
     if (tipo === "crear") {
       const producto = { name, description, price };
-      const action = agregarProductoCreador(producto);
+      const action = crearAsyncCreator(producto);
 
       dispatch(action);
     }
